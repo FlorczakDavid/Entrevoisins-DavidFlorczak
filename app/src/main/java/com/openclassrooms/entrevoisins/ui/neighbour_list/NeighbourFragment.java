@@ -1,6 +1,7 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
@@ -22,7 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 
-public class NeighbourFragment extends Fragment {
+public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerViewAdapter.OnNeighboursListener {
 
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
@@ -60,7 +62,7 @@ public class NeighbourFragment extends Fragment {
      */
     private void initList() {
         mNeighbours = mApiService.getNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, this));
     }
 
     @Override
@@ -89,5 +91,22 @@ public class NeighbourFragment extends Fragment {
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         mApiService.deleteNeighbour(event.neighbour);
         initList();
+    }
+
+    @Override
+    public void onNeighbourClick(int position) {
+
+        Neighbour sentNeighbour = mNeighbours.get(position);
+
+        Intent intent = new Intent(getContext(), SeeNeighbourDetailActivity.class);
+        //intent.putExtra() backgroundImage
+        intent.putExtra("neighbourName", sentNeighbour.getName());
+        intent.putExtra("neighbourAdress", sentNeighbour.getAddress());
+        intent.putExtra("phoneNumber", sentNeighbour.getPhoneNumber());
+        //intent.putExtra("webAdress", sentNeighbour.get)
+        intent.putExtra("APropos", sentNeighbour.getAboutMe());
+        startActivity(intent);
+
+        //Toast.makeText(getContext(), "clicked! " + position + " " + mNeighbours.get(position).getName(), Toast.LENGTH_SHORT).show();
     }
 }

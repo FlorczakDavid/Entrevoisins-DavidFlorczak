@@ -3,4 +3,7 @@
     <string name="tab_neighbour_title">My neighbours</string>
     <string name="tab_favorites_title">Favorites</string>
     <string name="activity_new_neighbour">New neighbour</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loremIpsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras euismod ipsum hendrerit condimentum rhoncus. Nam non elementum odio, et porttitor arcu. Sed gravida risus ex, nec consectetur sem volutpat ac. Praesent facilisis ex in ante molestie, vel rutrum turpis varius. Sed malesuada consequat sollicitudin. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec felis dui, consectetur quis cursus sit amet, suscipit at leo.</string>
 </resources>

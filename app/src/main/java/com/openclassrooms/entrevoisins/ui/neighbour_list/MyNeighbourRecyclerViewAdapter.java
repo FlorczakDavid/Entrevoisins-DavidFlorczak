@@ -24,16 +24,18 @@ import butterknife.ButterKnife;
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final List<Neighbour> mNeighbours;
+    private OnNeighboursListener mOnNeighboursListener;
 
-    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
-        mNeighbours = items;
+    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, OnNeighboursListener onNeighboursListener) {
+        this.mNeighbours = items;
+        this.mOnNeighboursListener = onNeighboursListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_neighbour, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnNeighboursListener);
     }
 
     @Override
@@ -58,7 +60,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         return mNeighbours.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.item_list_avatar)
         public ImageView mNeighbourAvatar;
         @BindView(R.id.item_list_name)
@@ -66,9 +68,24 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
 
-        public ViewHolder(View view) {
+        OnNeighboursListener onNeighboursListener;
+
+        public ViewHolder(View view, OnNeighboursListener neighboursListener) {
             super(view);
             ButterKnife.bind(this, view);
+            this.onNeighboursListener = neighboursListener;
+
+            view.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onNeighboursListener.onNeighbourClick(getAdapterPosition());
+        }
+    }
+
+//remove
+    public interface OnNeighboursListener {
+        void onNeighbourClick(int position);
     }
 }

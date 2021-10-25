@@ -12,7 +12,6 @@ import java.util.Map;
  * TODO: Replace all uses of this class before publishing your app.
  */
 public class PlaceholderContent {
-
     /**
      * An array of sample (placeholder) items.
      */

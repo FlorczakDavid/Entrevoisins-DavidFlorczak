@@ -8,11 +8,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../../layout/custom_preview.xml" value="0.38958333333333334" />
+        <entry key="app/src/main/res/drawable/ic_account.xml" value="0.4101123595505618" />
         <entry key="app/src/main/res/layout/activity_add_neighbour.xml" value="0.34375" />
+        <entry key="app/src/main/res/layout/activity_detail_neighbour.xml" value="0.2296195652173913" />
         <entry key="app/src/main/res/layout/activity_list_neighbour.xml" value="0.19701086956521738" />
+        <entry key="app/src/main/res/layout/fragment_detail_neighbour.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_favorite_neighbour_list.xml" value="0.33605072463768115" />
         <entry key="app/src/main/res/layout/fragment_list_neighbour.xml" value="0.34375" />
         <entry key="app/src/main/res/layout/fragment_neighbour.xml" value="0.34375" />
+        <entry key="app/src/main/res/layout/fragment_neighbour_details.xml" value="0.2418478260869565" />
+        <entry key="app/src/main/res/layout/fragment_neighbour_details_list_dialog.xml" value="0.2418478260869565" />
+        <entry key="app/src/main/res/layout/fragment_neighbour_details_list_dialog_item.xml" value="0.2418478260869565" />
         <entry key="app/src/main/res/layout/fragment_neighbour_list.xml" value="0.34375" />
       </map>
     </option>
