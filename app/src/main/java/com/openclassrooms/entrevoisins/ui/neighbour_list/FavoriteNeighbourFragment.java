@@ -61,7 +61,7 @@ public class FavoriteNeighbourFragment extends Fragment implements MyNeighbourRe
      * Init the List of neighbours
      */
     private void initList() {
-        mNeighbours = mApiService.getNeighbours();
+        mNeighbours = mApiService.getFavoriteNeighbours();
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, this));
     }
 
@@ -89,7 +89,7 @@ public class FavoriteNeighbourFragment extends Fragment implements MyNeighbourRe
      */
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
-        mApiService.deleteNeighbour(event.neighbour);
+        mApiService.deleteFavoriteNeighbour(event.neighbour);
         initList();
     }
 
@@ -99,7 +99,7 @@ public class FavoriteNeighbourFragment extends Fragment implements MyNeighbourRe
         Neighbour sentNeighbour = mNeighbours.get(position);
 
         Intent intent = new Intent(getContext(), SeeNeighbourDetailActivity.class);
-        //intent.putExtra() backgroundImage
+        intent.putExtra("imageURL", sentNeighbour.getAvatarUrl());
         intent.putExtra("neighbourName", sentNeighbour.getName());
         intent.putExtra("neighbourAdress", sentNeighbour.getAddress());
         intent.putExtra("phoneNumber", sentNeighbour.getPhoneNumber());

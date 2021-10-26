@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
@@ -20,6 +21,7 @@ import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -98,14 +100,21 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
 
         Neighbour sentNeighbour = mNeighbours.get(position);
 
+        Gson neighbourGson = new Gson();
+
         Intent intent = new Intent(getContext(), SeeNeighbourDetailActivity.class);
-        //intent.putExtra() backgroundImage
-        intent.putExtra("neighbourName", sentNeighbour.getName());
-        intent.putExtra("neighbourAdress", sentNeighbour.getAddress());
-        intent.putExtra("phoneNumber", sentNeighbour.getPhoneNumber());
-        //intent.putExtra("webAdress", sentNeighbour.get)
-        intent.putExtra("APropos", sentNeighbour.getAboutMe());
+//        intent.putExtra("imageURL", sentNeighbour.getAvatarUrl());
+//        intent.putExtra("neighbourName", sentNeighbour.getName());
+//        intent.putExtra("neighbourAdress", sentNeighbour.getAddress());
+//        intent.putExtra("phoneNumber", sentNeighbour.getPhoneNumber());
+//        //intent.putExtra("webAdress", sentNeighbour.get)
+//        intent.putExtra("APropos", sentNeighbour.getAboutMe());
+
+
+        intent.putExtra("neighbour", neighbourGson.toJson(sentNeighbour));
         startActivity(intent);
+
+
 
         //Toast.makeText(getContext(), "clicked! " + position + " " + mNeighbours.get(position).getName(), Toast.LENGTH_SHORT).show();
     }

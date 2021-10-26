@@ -18,7 +18,6 @@ public class Neighbour {
 
     /** Adress */
     private String address;
-
     /** Phone number */
     private String phoneNumber;
 

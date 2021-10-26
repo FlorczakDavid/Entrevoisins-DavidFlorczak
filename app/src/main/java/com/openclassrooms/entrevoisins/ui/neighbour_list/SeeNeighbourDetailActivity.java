@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
@@ -49,36 +51,52 @@ public class SeeNeighbourDetailActivity extends AppCompatActivity {
     @BindView(R.id.backButtom)
     ImageButton backButton;
 
+    private NeighbourApiService mApiService;
+    private Neighbour neighbour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_neighbour);
         ButterKnife.bind(this);
+        mApiService = DI.getNeighbourApiService();
         init();
     }
 
 
     private void init() {
-//        Glide.with(this).load(mNeighbourImage).placeholder(R.drawable.ic_account)
-//                .apply(RequestOptions.circleCropTransform()).into(avatar);
-        nameOneBackground.setText(this.getIntent().getExtras().getString("neighbourName"));
-        nameOneCardView.setText(this.getIntent().getExtras().getString("neighbourName"));
-        cardViewAdress.setText(this.getIntent().getExtras().getString("neighbourAdress"));
-        cardViewPhoneNumber.setText(this.getIntent().getExtras().getString("phoneNumber"));
-        cardViewDescription.setText(this.getIntent().getExtras().getString("APropos"));
+        Gson recievedNeighbour = new Gson();
+        neighbour = recievedNeighbour.fromJson(this.getIntent().getExtras().getString("neighbour"), Neighbour.class);
+
+        favoriteButton.setColorFilter(mApiService.getFavoriteNeighbours().contains(neighbour) ? ContextCompat.getColor(this, R.color.colorAccent) : ContextCompat.getColor(this, android.R.color.holo_orange_light));
+
+        Glide.with(this).load(neighbour.getAvatarUrl()).into(backgroundImage);
+        nameOneBackground.setText(neighbour.getName());
+        nameOneCardView.setText(neighbour.getName());
+        cardViewAdress.setText(neighbour.getAddress());
+        cardViewPhoneNumber.setText(neighbour.getPhoneNumber());
+        cardViewDescription.setText(neighbour.getAboutMe());
 
         cardViewWebAdress.setText("www.facebook.fr/" + this.getIntent().getExtras().getString("neighbourName"));
     }
 
     @OnClick(R.id.backButtom)
     void goBack() {
-
+        finish();
     }
 
     @OnClick(R.id.favoriteButton)
-            void addFavorite() {
-
+    void addFavorite() {
+            Neighbour neighbour = new Neighbour(
+                    System.currentTimeMillis(),
+                    this.getIntent().getExtras().getString("neighbourName"),
+                    this.getIntent().getExtras().getString("imageURL"),
+                    this.getIntent().getExtras().getString("neighbourAdress"),
+                    this.getIntent().getExtras().getString("phoneNumber"),
+                    this.getIntent().getExtras().getString("APropos")
+            );
+            mApiService.createFavoriteNeighbour(neighbour);
+            finish();
     }
 
     /**
