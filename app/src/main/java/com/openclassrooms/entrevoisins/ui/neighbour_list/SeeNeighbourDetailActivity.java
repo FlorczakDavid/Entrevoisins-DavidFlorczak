@@ -68,7 +68,8 @@ public class SeeNeighbourDetailActivity extends AppCompatActivity {
         Gson recievedNeighbour = new Gson();
         neighbour = recievedNeighbour.fromJson(this.getIntent().getExtras().getString("neighbour"), Neighbour.class);
 
-        favoriteButton.setColorFilter(mApiService.getFavoriteNeighbours().contains(neighbour) ? ContextCompat.getColor(this, R.color.colorAccent) : ContextCompat.getColor(this, android.R.color.holo_orange_light));
+        favoriteButton.setColorFilter(mApiService.getFavoriteNeighbours().contains(neighbour) ? ContextCompat.getColor(this, android.R.color.holo_orange_light) : ContextCompat.getColor(this, android.R.color.darker_gray));
+        //favoriteButton.setBackgroundColor(mApiService.getFavoriteNeighbours().contains(neighbour) ? ContextCompat.getColor(this, android.R.color.holo_orange_light) : ContextCompat.getColor(this, android.R.color.background_light));
 
         Glide.with(this).load(neighbour.getAvatarUrl()).into(backgroundImage);
         nameOneBackground.setText(neighbour.getName());
@@ -87,16 +88,13 @@ public class SeeNeighbourDetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.favoriteButton)
     void addFavorite() {
-            Neighbour neighbour = new Neighbour(
-                    System.currentTimeMillis(),
-                    this.getIntent().getExtras().getString("neighbourName"),
-                    this.getIntent().getExtras().getString("imageURL"),
-                    this.getIntent().getExtras().getString("neighbourAdress"),
-                    this.getIntent().getExtras().getString("phoneNumber"),
-                    this.getIntent().getExtras().getString("APropos")
-            );
+        if (!mApiService.getFavoriteNeighbours().contains(neighbour)) {
             mApiService.createFavoriteNeighbour(neighbour);
-            finish();
+        } else {
+            mApiService.deleteFavoriteNeighbour(neighbour);
+        }
+        init();
+        //finish();
     }
 
     /**
