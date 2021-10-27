@@ -198,7 +198,7 @@
                 android:textSize="36sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="A propos de moi" />
+                android:text="A propos de moi" />
 
 
             <TextView
