@@ -10,8 +10,9 @@
       <map>
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.38958333333333334" />
         <entry key="app/src/main/res/drawable/ic_account.xml" value="0.4101123595505618" />
-        <entry key="app/src/main/res/layout/activity_add_neighbour.xml" value="0.34375" />
-        <entry key="app/src/main/res/layout/activity_detail_neighbour.xml" value="0.2296195652173913" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.255" />
+        <entry key="app/src/main/res/layout/activity_add_neighbour.xml" value="0.40350036621093754" />
+        <entry key="app/src/main/res/layout/activity_detail_neighbour.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_list_neighbour.xml" value="0.19701086956521738" />
         <entry key="app/src/main/res/layout/fragment_detail_neighbour.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_favorite_neighbour_list.xml" value="0.33605072463768115" />

@@ -1,24 +1,19 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Intent;
-import android.support.design.button.MaterialButton;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
@@ -78,7 +73,7 @@ public class SeeNeighbourDetailActivity extends AppCompatActivity {
         cardViewPhoneNumber.setText(neighbour.getPhoneNumber());
         cardViewDescription.setText(neighbour.getAboutMe());
 
-        cardViewWebAdress.setText("www.facebook.fr/" + this.getIntent().getExtras().getString("neighbourName"));
+        cardViewWebAdress.setText("www.facebook.fr/" + neighbour.getName());
     }
 
     @OnClick(R.id.backButtom)

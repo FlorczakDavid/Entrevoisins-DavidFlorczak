@@ -1,5 +1,18 @@
 package com.openclassrooms.entrevoisins.service;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
+
+
+import android.app.Application;
+import android.app.Instrumentation;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
+import com.google.gson.Gson;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
@@ -8,11 +21,23 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import androidx.annotation.Nullable;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
+//import androidx.test.core.app.ApplicationProvider;
+
 
 /**
  * Unit test on Neighbour service
@@ -21,11 +46,22 @@ import static org.junit.Assert.assertThat;
 public class NeighbourServiceTest {
 
     private NeighbourApiService service;
+    @Mock
+    Context mockContext;
+    @Mock
+    SharedPreferences mockSharedPreferences;
+    @Mock
+    SharedPreferences.Editor mockEditor;
 
     @Before
     public void setup() {
         service = DI.getNewInstanceApiService();
+        MockitoAnnotations.initMocks(this);
+
+        Mockito.when(mockContext.getSharedPreferences(anyString(), anyInt())).thenReturn(mockSharedPreferences);
+        Mockito.when(mockContext.getSharedPreferences(anyString(), anyInt()).edit()).thenReturn(mockEditor);
     }
+
 
     @Test
     public void getNeighboursWithSuccess() {
@@ -39,5 +75,22 @@ public class NeighbourServiceTest {
         Neighbour neighbourToDelete = service.getNeighbours().get(0);
         service.deleteNeighbour(neighbourToDelete);
         assertFalse(service.getNeighbours().contains(neighbourToDelete));
+    }
+
+
+    @Test
+    public void deleteFavoriteNeighbourWithSuccess() {
+//        Context context = ApplicationProvider.getApplicationContext();
+//        Context context = mock(Context.class);
+
+//        when(mockContext.getSharedPreferences("Neighbours", Context.MODE_PRIVATE)).thenReturn(mockSharedPreferences);
+//        when(mockContext.getSharedPreferences("Neighbours", Context.MODE_PRIVATE).edit()).thenReturn(mockEditor);
+
+//        List<Neighbour> neighbourToDelete = service.getFavoriteNeighbours(mockContext);
+//        assertNull(neighbourToDelete);
+
+        Neighbour neighbourToDelete = service.getNeighbours().get(3);
+        service.createFavoriteNeighbour(neighbourToDelete, mockContext);
+        assertTrue(service.getFavoriteNeighbours(mockContext).contains(neighbourToDelete));
     }
 }

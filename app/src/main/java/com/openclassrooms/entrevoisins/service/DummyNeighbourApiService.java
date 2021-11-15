@@ -39,6 +39,7 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
     }
 
 
+
     /**
      * {@inheritDoc}
      */
@@ -72,6 +73,6 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
         String json = gson.toJson(favoriteNeighbours);
 
         editor.putString("NeighboursList", json);
-        editor.commit();
+        editor.apply();
     }
 }
