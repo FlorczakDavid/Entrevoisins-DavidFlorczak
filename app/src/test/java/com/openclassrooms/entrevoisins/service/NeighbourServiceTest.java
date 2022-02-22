@@ -46,20 +46,20 @@ import java.util.Set;
 public class NeighbourServiceTest {
 
     private NeighbourApiService service;
-    @Mock
-    Context mockContext;
-    @Mock
-    SharedPreferences mockSharedPreferences;
-    @Mock
-    SharedPreferences.Editor mockEditor;
+//    @Mock
+//    Context mockContext;
+//    @Mock
+//    SharedPreferences mockSharedPreferences;
+//    @Mock
+//    SharedPreferences.Editor mockEditor;
 
     @Before
     public void setup() {
         service = DI.getNewInstanceApiService();
-        MockitoAnnotations.initMocks(this);
+//        MockitoAnnotations.initMocks(this);
 
-        Mockito.when(mockContext.getSharedPreferences(anyString(), anyInt())).thenReturn(mockSharedPreferences);
-        Mockito.when(mockContext.getSharedPreferences(anyString(), anyInt()).edit()).thenReturn(mockEditor);
+//        Mockito.when(mockContext.getSharedPreferences(anyString(), anyInt())).thenReturn(mockSharedPreferences);
+//        Mockito.when(mockContext.getSharedPreferences(anyString(), anyInt()).edit()).thenReturn(mockEditor);
     }
 
 
@@ -77,6 +77,13 @@ public class NeighbourServiceTest {
         assertFalse(service.getNeighbours().contains(neighbourToDelete));
     }
 
+    @Test
+    public void createFavoriteNeighbourWithSuccess() {
+        Neighbour neighbourToAdd = service.getNeighbours().get(0);
+        service.createFavoriteNeighbour(neighbourToAdd);
+        assertTrue(service.getFavoriteNeighbours().contains(neighbourToAdd));
+    }
+
 
     @Test
     public void deleteFavoriteNeighbourWithSuccess() {
@@ -89,8 +96,26 @@ public class NeighbourServiceTest {
 //        List<Neighbour> neighbourToDelete = service.getFavoriteNeighbours(mockContext);
 //        assertNull(neighbourToDelete);
 
-        Neighbour neighbourToDelete = service.getNeighbours().get(3);
-        service.createFavoriteNeighbour(neighbourToDelete, mockContext);
-        assertTrue(service.getFavoriteNeighbours(mockContext).contains(neighbourToDelete));
+//        Neighbour neighbourToDelete = service.getNeighbours().get(3);
+//        service.createFavoriteNeighbour(neighbourToDelete, mockContext);
+//        assertTrue(service.getFavoriteNeighbours(mockContext).contains(neighbourToDelete));
+
+        Neighbour neighbourToAdd = service.getNeighbours().get(0);
+        service.createFavoriteNeighbour(neighbourToAdd);
+
+        Neighbour neighbourToDelete = service.getFavoriteNeighbours().get(0);
+        service.deleteFavoriteNeighbour(neighbourToDelete);
+        assertFalse(service.getFavoriteNeighbours().contains(neighbourToDelete));
     }
+
+    @Test
+    public void getFavoriteNeighboursWithSuccess() {
+        Neighbour neighbourToAdd = service.getNeighbours().get(0);
+        service.createFavoriteNeighbour(neighbourToAdd);
+
+//        Neighbour neighbourToDelete = service.getFavoriteNeighbours().get(0);
+//        service.deleteFavoriteNeighbour(neighbourToDelete);
+        assertFalse(service.getFavoriteNeighbours().isEmpty());
+    }
+
 }

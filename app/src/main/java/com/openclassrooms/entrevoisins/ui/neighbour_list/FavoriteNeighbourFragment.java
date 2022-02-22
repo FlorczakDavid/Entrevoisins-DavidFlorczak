@@ -24,7 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 
-public class FavoriteNeighbourFragment extends Fragment implements MyNeighbourRecyclerViewAdapter.OnNeighboursListener {
+public class FavoriteNeighbourFragment extends Fragment  {
 
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
@@ -62,8 +62,8 @@ public class FavoriteNeighbourFragment extends Fragment implements MyNeighbourRe
      * Init the List of neighbours
      */
     private void initList() {
-        mNeighbours = mApiService.getFavoriteNeighbours(this.getContext());
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, this));
+        mNeighbours = mApiService.getFavoriteNeighbours(/*this.getContext()*/);
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
     }
 
     @Override
@@ -91,28 +91,7 @@ public class FavoriteNeighbourFragment extends Fragment implements MyNeighbourRe
      */
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
-        mApiService.deleteFavoriteNeighbour(event.neighbour, this.getContext());
+        mApiService.deleteFavoriteNeighbour(event.neighbour/*, this.getContext()*/);
         initList();
-    }
-
-    @Override
-    public void onNeighbourClick(int position) {
-
-        Neighbour sentNeighbour = mNeighbours.get(position);
-
-        Gson neighbourGson = new Gson();
-
-        Intent intent = new Intent(getContext(), SeeNeighbourDetailActivity.class);
-//        intent.putExtra("imageURL", sentNeighbour.getAvatarUrl());
-//        intent.putExtra("neighbourName", sentNeighbour.getName());
-//        intent.putExtra("neighbourAdress", sentNeighbour.getAddress());
-//        intent.putExtra("phoneNumber", sentNeighbour.getPhoneNumber());
-//        //intent.putExtra("webAdress", sentNeighbour.get)
-//        intent.putExtra("APropos", sentNeighbour.getAboutMe());
-
-
-        intent.putExtra("neighbour", neighbourGson.toJson(sentNeighbour));
-        startActivity(intent);
-        //Toast.makeText(getContext(), "clicked! " + position + " " + mNeighbours.get(position).getName(), Toast.LENGTH_SHORT).show();
     }
 }

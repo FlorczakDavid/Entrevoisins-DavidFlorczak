@@ -63,7 +63,7 @@ public class SeeNeighbourDetailActivity extends AppCompatActivity {
         Gson recievedNeighbour = new Gson();
         neighbour = recievedNeighbour.fromJson(this.getIntent().getExtras().getString("neighbour"), Neighbour.class);
 
-        favoriteButton.setColorFilter(mApiService.getFavoriteNeighbours(this.getApplicationContext()).contains(neighbour) ? ContextCompat.getColor(this, android.R.color.holo_orange_light) : ContextCompat.getColor(this, android.R.color.darker_gray));
+        favoriteButton.setColorFilter(mApiService.getFavoriteNeighbours(/*this.getApplicationContext()*/).contains(neighbour) ? ContextCompat.getColor(this, android.R.color.holo_orange_light) : ContextCompat.getColor(this, android.R.color.darker_gray));
         //favoriteButton.setBackgroundColor(mApiService.getFavoriteNeighbours().contains(neighbour) ? ContextCompat.getColor(this, android.R.color.holo_orange_light) : ContextCompat.getColor(this, android.R.color.background_light));
 
         Glide.with(this).load(neighbour.getAvatarUrl()).into(backgroundImage);
@@ -83,10 +83,10 @@ public class SeeNeighbourDetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.favoriteButton)
     void addFavorite() {
-        if (!mApiService.getFavoriteNeighbours(this.getApplicationContext()).contains(neighbour)) {
-            mApiService.createFavoriteNeighbour(neighbour, this.getApplicationContext());
+        if (!mApiService.getFavoriteNeighbours(/*this.getApplicationContext()*/).contains(neighbour)) {
+            mApiService.createFavoriteNeighbour(neighbour/*, this.getApplicationContext()*/);
         } else {
-            mApiService.deleteFavoriteNeighbour(neighbour, this.getApplicationContext());
+            mApiService.deleteFavoriteNeighbour(neighbour/*, this.getApplicationContext()*/);
         }
         init();
         //finish();

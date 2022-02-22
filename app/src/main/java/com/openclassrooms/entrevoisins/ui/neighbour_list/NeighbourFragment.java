@@ -24,7 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 
-public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerViewAdapter.OnNeighboursListener {
+public class NeighbourFragment extends Fragment {
 
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
@@ -62,7 +62,7 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
      */
     private void initList() {
         mNeighbours = mApiService.getNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, this));
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
     }
 
     @Override
@@ -91,29 +91,5 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         mApiService.deleteNeighbour(event.neighbour);
         initList();
-    }
-
-    @Override
-    public void onNeighbourClick(int position) {
-
-        Neighbour sentNeighbour = mNeighbours.get(position);
-
-        Gson neighbourGson = new Gson();
-
-        Intent intent = new Intent(getContext(), SeeNeighbourDetailActivity.class);
-//        intent.putExtra("imageURL", sentNeighbour.getAvatarUrl());
-//        intent.putExtra("neighbourName", sentNeighbour.getName());
-//        intent.putExtra("neighbourAdress", sentNeighbour.getAddress());
-//        intent.putExtra("phoneNumber", sentNeighbour.getPhoneNumber());
-//        //intent.putExtra("webAdress", sentNeighbour.get)
-//        intent.putExtra("APropos", sentNeighbour.getAboutMe());
-
-
-        intent.putExtra("neighbour", neighbourGson.toJson(sentNeighbour));
-        startActivity(intent);
-
-
-
-        //Toast.makeText(getContext(), "clicked! " + position + " " + mNeighbours.get(position).getName(), Toast.LENGTH_SHORT).show();
     }
 }

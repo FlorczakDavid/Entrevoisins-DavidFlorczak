@@ -17,19 +17,19 @@ public interface NeighbourApiService {
      * @return {@link List}
      */
     List<Neighbour> getNeighbours();
-    List<Neighbour> getFavoriteNeighbours(Context context);
+    List<Neighbour> getFavoriteNeighbours(/*Context context*/);
 
     /**
      * Deletes a neighbour
      * @param neighbour
      */
     void deleteNeighbour(Neighbour neighbour);
-    void deleteFavoriteNeighbour(Neighbour neighbour, Context context);
+    void deleteFavoriteNeighbour(Neighbour neighbour/*, Context context*/);
 
     /**
      * Create a neighbour
      * @param neighbour
      */
     void createNeighbour(Neighbour neighbour);
-    void createFavoriteNeighbour(Neighbour neighbour, Context context);
+    void createFavoriteNeighbour(Neighbour neighbour/*, Context context*/);
 }
